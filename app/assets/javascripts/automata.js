@@ -1,21 +1,12 @@
 var width = 20;
 var height = 20;
-var board = [];
+var stepTime = 600;
+var board = ["1010101110"];
+var rule = {"111":"0", "110":"1", "101":"1", "100":"0", "011":"1", "010":"1", "001":"1", "000":"0"}; 
+var stopAfter = 100;
 
 function startGame() {
-    initBoard()
     myGameArea.start();
-}
-
-function initBoard() {
-    for (row = 0; row < 10; row++) {
-        var r = []
-        for (col = 0; col < 10; col++) {
-	    var color = (col % 2 == row % 2) ? "red" : "blue";
-            r.push(color)
-        }
-        board.push(r)
-    }
 }
 
 var myGameArea = {
@@ -25,7 +16,7 @@ var myGameArea = {
         this.canvas.height = 2000;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 1000);
+        this.interval = setInterval(updateGameArea, stepTime);
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -33,11 +24,29 @@ var myGameArea = {
 }
 
 function updateGameArea() {
+    genNextRow();
+    repaint();
+    //if (stopAfter++) {
+        //clearInterval(myGameArea.interval);
+    //}
+}
+
+function genNextRow() {
+    var lastRow = board[board.length - 1];
+    var newRow = [];
+    for (idx = 0; idx < lastRow.length; idx++) {
+        var triplet = (lastRow[idx - 1] || "0") + (lastRow[idx] || "0") + (lastRow[idx + 1] || "0");
+        newRow.push(rule[triplet]);
+    };
+    board.push(newRow);
+}
+
+function repaint() {
     ctx = myGameArea.context;
-    for (row = 0; row < 10; row++) {
-        for (col = 0; col < 10; col++) {
-	    var color = board[row][col]
-	    ctx.fillStyle = color;
+    for (row = 0; row < board.length; row++) {
+        for (col = 0; col < board[row].length; col++) {
+	    var alive = board[row][col];
+	    ctx.fillStyle = alive == "1" ? "black" : "white";
 	    ctx.fillRect(col * width, row * height, width, height);
       }
    }
