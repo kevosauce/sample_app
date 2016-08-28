@@ -1,9 +1,9 @@
 var width = 20;
 var height = 20;
-var stepTime = 600;
+var stepTime = 200;
 var board = ["1"];
 var rule = {"111":"0", "110":"1", "101":"1", "100":"0", "011":"1", "010":"1", "001":"1", "000":"0"}; 
-var stopAfter = 30;
+var stopAfter = 300;
 
 function startGame() {
     myGameArea.start();
@@ -12,8 +12,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 1000;
-        this.canvas.height = 2000;
+        this.canvas.width = 10000;
+        this.canvas.height = 20000;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, stepTime);
