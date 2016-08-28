@@ -1,9 +1,9 @@
 var width = 20;
 var height = 20;
 var stepTime = 600;
-var board = ["1"];
+var board = ["00000000000000000000000100000000000000000000000"];
 var rule = {"111":"0", "110":"1", "101":"1", "100":"0", "011":"1", "010":"1", "001":"1", "000":"0"}; 
-var stopAfter = 5;
+var stopAfter = 30;
 
 function startGame() {
     myGameArea.start();
@@ -28,14 +28,13 @@ function updateGameArea() {
     genNextRow();
     repaint();
     myGameArea.iters += 1;
-    console.log(myGameArea.iters);
     if (myGameArea.iters > stopAfter) {
         clearInterval(myGameArea.interval);
     }
 }
 
 function genNextRow() {
-    var lastRow = "0" + board[board.length - 1];
+    var lastRow = board[board.length - 1];
     var newRow = "";
     for (idx = 0; idx < lastRow.length; idx++) {
         var triplet = (lastRow[idx - 1] || "0") + (lastRow[idx] || "0") + (lastRow[idx + 1] || "0");
