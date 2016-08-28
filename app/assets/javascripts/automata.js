@@ -6,7 +6,6 @@ var rule = {"111":"0", "110":"1", "101":"1", "100":"0", "011":"1", "010":"1", "0
 var stopAfter = 30;
 
 function startGame() {
-   console.log("loaded page");
     myGameArea.start();
 }
 
