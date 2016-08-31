@@ -12,8 +12,8 @@ function startGame() {
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
-        this.canvas.width = 10000;
-        this.canvas.height = 20000;
+        this.canvas.width = 1000;
+        this.canvas.height = 2000;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, stepTime);
